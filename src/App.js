@@ -4,13 +4,13 @@ import { Provider } from "react-redux";
 import store from "./store";
 
 // components
-import Test from "./containers/Test/Test";
+import Layout from "./containers";
 
 class App extends Component {
   render() {
     return (
       <Provider store={store}>
-        <Test />
+        <Layout />
       </Provider>
     );
   }
