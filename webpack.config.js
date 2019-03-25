@@ -6,7 +6,8 @@ module.exports = {
   entry: ["babel-polyfill", path.join(__dirname, "/src/index.js")],
   output: {
     filename: "build.js",
-    path: path.join(__dirname, "/dist")
+    path: path.join(__dirname, "/dist"),
+    publicPath: "/" // specifiy path for all assets, including 404 not found
   },
   module: {
     rules: [
@@ -24,22 +25,11 @@ module.exports = {
           "css-loader", // translates CSS into CommonJS
           "sass-loader" // compiles Sass to CSS, using Node Sass by default
         ]
+      },
+      {
+        test: /\.(png|jpg|gif)$/,
+        loader: "url-loader"
       }
-      // {
-      //   test: /\.(sc|c)ss$/,
-      //   use: [
-      //     {
-      //       loader: MCDP.loader,
-      //       options: {
-      //         // you can specify a publicPath here
-      //         // by default it use publicPath in webpackOptions.output
-      //         publicPath: "../"
-      //       }
-      //     },
-      //     "css-loader",
-      //     "sass-loader"
-      //   ]
-      // }
     ]
   },
   devServer: {
@@ -47,7 +37,8 @@ module.exports = {
     open: true,
     contentBase: path.join(__dirname, "dist"),
     compress: true,
-    port: 8000
+    port: 8000,
+    historyApiFallback: true // redirect back to root route for 404
   },
   plugins: [
     new HWP({ template: path.join(__dirname, "/src/index.html") }),
